@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: gemini-webapi
     environment:
+      - SECURE_1PSID=${SECURE_1PSID}
+      - SECURE_1PSIDTS=${SECURE_1PSIDTS}
       - GEMINI_COOKIE_PATH=/data/gemini_webapi
       - PYTHONUNBUFFERED=1
     volumes:
