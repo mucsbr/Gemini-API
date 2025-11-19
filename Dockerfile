@@ -2,12 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY pyproject.toml ./
-COPY src/ ./src/
 COPY app.py ./
 
-RUN pip install --no-cache-dir -e . && \
-    pip install --no-cache-dir fastapi uvicorn && \
+RUN pip install --no-cache-dir -U gemini-webapi fastapi uvicorn && \
     mkdir -p /data/gemini_webapi
 
 ENV GEMINI_COOKIE_PATH=/data/gemini_webapi \
