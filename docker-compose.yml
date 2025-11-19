@@ -11,10 +11,9 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./gemini_cookies:/data/gemini_webapi
-      - ./src:/app/src  # 开发时挂载源码
+    ports:
+      - "8000:8000"
     restart: unless-stopped
-    # ports:
-    #   - "8000:8000"  # 如果需要暴露端口
     networks:
       - gemini-network
 
