@@ -1,0 +1,8 @@
+services:
+  gemini-api:
+    build: .
+    environment:
+      GEMINI_COOKIE_PATH: /data/gemini_webapi
+    volumes:
+      - ./gemini_cookies:/data/gemini_webapi
+    restart: unless-stopped
