@@ -1,8 +1,23 @@
+version: '3.8'
+
 services:
   gemini-api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gemini-webapi
     environment:
-      GEMINI_COOKIE_PATH: /data/gemini_webapi
+      - GEMINI_COOKIE_PATH=/data/gemini_webapi
+      - PYTHONUNBUFFERED=1
     volumes:
       - ./gemini_cookies:/data/gemini_webapi
+      - ./src:/app/src  # 开发时挂载源码
     restart: unless-stopped
+    # ports:
+    #   - "8000:8000"  # 如果需要暴露端口
+    networks:
+      - gemini-network
+
+networks:
+  gemini-network:
+    driver: bridge
