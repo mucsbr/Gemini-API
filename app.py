@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 from gemini_webapi import GeminiClient
+import os
 
 app = FastAPI(title="Gemini API Proxy")
 client = None
@@ -23,8 +24,10 @@ class ChatResponse(BaseModel):
 @app.on_event("startup")
 async def startup():
     global client
-    client = GeminiClient()
-    await client.init(timeout=30, auto_close=False, auto_refresh=True)
+    Secure_1PSID = os.getenv("SECURE_1PSID")
+    Secure_1PSIDTS = os.getenv("SECURE_1PSIDTS")
+    client = GeminiClient(Secure_1PSID, Secure_1PSIDTS, proxy=None)
+    await client.init(timeout=30, auto_close=False, close_delay=300, auto_refresh=True)
 
 
 @app.on_event("shutdown")
